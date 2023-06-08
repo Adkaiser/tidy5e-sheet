@@ -689,6 +689,13 @@ export default class Tidy5eNPC extends dnd5e.applications.actor.ActorSheet5eNPC 
 		// Recover hit points & hit dice on long rest
 		if (longRest || newDay) {
 			this.actor.update({ "system.attributes.hp.value": Number(this.actor.system.attributes.hp.max ?? 0) });
+			// Patch for NPC
+			if (this.actor.flags[CONSTANTS.MODULE_ID].exhaustion > 0) {
+				const exhaustion = this.actor.flags[CONSTANTS.MODULE_ID].exhaustion;
+				debug("tidy5e-npc | _rest | exhaustion = " + exhaustion);
+				await this.actor.update({ "flags.tidy5e-sheet.exhaustion": exhaustion - 1 });
+				await updateExhaustion(this.actor);
+			}
 		} else {
 			const rollData = this.actor.getRollData();
 			const roll_value = await new Roll(isLessThanOneIsOne(dhd) + "d6", rollData).roll();

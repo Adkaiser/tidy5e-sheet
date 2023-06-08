@@ -273,17 +273,13 @@ export async function updateExhaustion(actorEntity) {
 Hooks.on(`dnd5e.restCompleted`, (actorEntity, data) => {
 	let actor = game.actors.get(actorEntity._id);
 	if (data.longRest) {
+		console.log("long rest")
 		if (actor.type === "character") {
 			let exhaustion = actorEntity.system.attributes.exhaustion;
 			if (exhaustion > 0) {
 				actor.update({ "system.attributes.exhaustion": exhaustion - 1 });
 			}
-		} else if (actor.type === "npc") {
-			let exhaustion = actorEntity.flags[CONSTANTS.MODULE_ID].exhaustion;
-			if (exhaustion > 0) {
-				actor.update({ "flags.tidy5e-sheet.exhaustion": exhaustion - 1 });
-			}
-		} else {
+		} else if (actor.type !== "npc"){
 			warn(`Long rest is not supported for actor ype '${actor.type}'`);
 		}
 	}
