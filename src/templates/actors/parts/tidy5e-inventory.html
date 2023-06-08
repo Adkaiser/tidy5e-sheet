@@ -60,7 +60,7 @@
     <ul class="item-list">
       {{#each section.items as |item iid|}}
       {{#unless item.id}}
-        {{> "modules/tidy5e-sheet/templates/actors/parts/tidy5e-simple-item.html"}}
+        {{> "modules/tidy5e-sheet/templates/actors/parts/tidy5e-simple-item.html" section=section item=item}}
       {{/unless}}
       {{#with (lookup @root.itemContext item.id) as |ctx|}}
         <li class="item {{section.css}} {{#if (or item.flags.magicitems.enabled item.system.properties.mgc)}}magic-item{{/if}} {{item.attunement.cls}} {{#if item.system.equipped}}equipped{{/if}}" data-item-id="{{#if section.editableName}}{{iid}}{{else}}{{item.id}}{{/if}}" data-item-index="{{#if section.editableName}}{{iid}}{{else}}{{item._id}}{{/if}}">
