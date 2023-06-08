@@ -10,7 +10,7 @@ export const tidy5eItemCard = function (html, actor) {
 		? html.find(".inventory-list:not(.character-actions-dnd5e)")
 		: html.find(".grid-layout .inventory-list");
 	let cardTrigger = itemCardsForAllItems
-		? html.find(".inventory-list:not(.character-actions-dnd5e) .item-list .item")
+		? html.find(".inventory-list:not(.character-actions-dnd5e) .item-list .item:not(.no-card)")
 		: html.find(".grid-layout .item-list .item");
 
 	let infoContainer = html.find("#item-info-container"),
